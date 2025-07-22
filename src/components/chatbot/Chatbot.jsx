@@ -17,7 +17,7 @@ const Chatbot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
-  const GEMINI_API_KEY = 'AIzaSyDcEs8KsWe34PXngJnOKKL4_TpOO_-E7ek';
+  const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY'; 
 
   const agentBasedPricing = [
     {
