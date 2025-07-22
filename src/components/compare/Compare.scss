@@ -25,14 +25,16 @@
     
     .header-table-container {
       position: sticky;
-      top: 60px;
+      top: 58px;
       z-index: 10;
       background: white;
       width: 100%;
       
+      
       .header-table {
         width: 100%;
         border-collapse: collapse;
+        
         
         th {
           padding: 25px 16px;
@@ -42,11 +44,11 @@
           color: #374151;
           position: sticky;
           background: #ffffff;
-          border-bottom: 2px solid #e2e8f0;
+          border-bottom: 1px solid #e2e8f0;
 
           &:nth-child(2){
             text-align: left;
-            padding-left: 8px;
+            padding-left: 0px;
           }
 
           &:nth-child(3){
@@ -106,7 +108,7 @@
               padding: 16px;
               text-align: left;
               font-size: 16px;
-              color: #6c6c6c;
+              color: #757272;
               font-weight: 300;
               border-bottom: 1px solid #f1f5f9;
 
@@ -236,16 +238,99 @@
     padding: 20px 10px;
     
     .comparison-table-wrapper {
+      .header-table-container {
+        top: 40px;
+        box-shadow: 0px 5px 5px 0px rgba(237, 237, 242, 0.2);
+        .header-table {
+          min-width: 120px; 
+          
+          th {
+            padding: 16px 8px;
+            font-size: 16px;
+            border-bottom: 1px solid #e1dddd99;
+            
+            &:nth-child(2) {
+              padding-left: 8px;
+            }
+            
+            &:nth-child(3) {
+              padding-right: 8px;
+            }
+            
+            &.feature-column {
+              width: 35%;
+            }
+          }
+        }
+      }
+      
       .body-table-container {
         overflow-x: auto;
         
         .body-table {
-          min-width: 600px;
+          min-width: 100%;
+          
+          tbody {
+            .feature-row {
+              flex-wrap: wrap;
+              display: flex;
+              border-bottom: 1px solid #f1f5f9;
+              
+              td {
+                padding: 14px 0px;
+                font-size: 16px;
+                
+                &:nth-child(3),
+                &:nth-child(4) {
+                  display: none;
+                }
+                
+                &.feature-name {
+                  font-size: 14px;
+                  width: 100%;
+                  order: -1;
+                  padding-bottom: 6px;
+                  font-weight: 400;
+                }
+                
+                &:nth-child(2) {
+                  width: 50%;
+                  padding-top: 6px;
+                  display: flex;
+                  flex-direction: column;
+                  
+                  &::after {
+                    content: attr(data-pro-value);
+                    display: block;
+                    
+               
+                  }
+                }
+                
+                &:nth-child(5) {
+                  width: 50%;
+                  padding-top: 6px;
+                  display: flex;
+                  flex-direction: column;
+                  
+                  &::before {
+                    content: attr(data-team-value);
+                    display: block;
+                   
+                  }
+                }
+                
+                .checkmark {
+                  font-size: 14px;
+                }
+                
+                .dash {
+                  font-size: 16px;
+                }
+              }
+            }
+          }
         }
-      }
-      
-      .header-table {
-        min-width: 600px;
       }
     }
   }
@@ -338,22 +423,24 @@
       .body-table-container {
         .body-table {
           min-width: 700px;
+
+          
           
           tbody {
             .category-row {
               .category-name {
-                font-size: 15px;
-                padding: 14px;
+                font-size: 16px;
+                padding: 25px 8px 15px 8px;
               }
             }
             
             .feature-row {
               td {
                 padding: 14px 8px;
-                font-size: 14px;
+                font-size: 16px;
                 
                 &.feature-name {
-                  font-size: 14px;
+                  font-size: 16px;
                 }
                 
                 .checkmark {
@@ -385,8 +472,8 @@
 
 @media (max-width: 576px) {
   .compare-title {
-    font-size: 20px;
-    padding: 25px 0;
+    font-size: 24px;
+    padding: 45px 0;
   }
   
   .compare-container {
@@ -411,6 +498,13 @@
       .body-table-container {
         .body-table {
           min-width: 600px;
+
+          .category-row {
+            .category-name {
+              font-size: 12px;
+              padding: 14px;
+            }
+          }
         }
       }
     }
@@ -430,7 +524,7 @@
 @media (max-width: 768px) {
   .compare-container {
     &::after {
-      content: "← Swipe to see more →";
+      
       display: block;
       text-align: center;
       color: #666;
@@ -457,6 +551,7 @@
         top: 40px;
         .header-table {
           min-width: 120px; 
+          b
           
           th {
             padding: 16px 8px;
@@ -478,10 +573,106 @@
       }
       
       .body-table-container {
-        overflow-x: auto;
+        overflow-x: hidden;
+        
+        margin: 0 0 0 2px;
         
         .body-table {
-          min-width: 700px; 
+          margin: 0 20px;
+          
+          tbody {
+            
+            .feature-row {
+              flex-wrap: wrap;
+              display: flex;
+             
+              
+              td {
+                padding: 14px 8px;
+                font-size: 16px;
+                
+                &:nth-child(3),
+                &:nth-child(4) {
+                  display: none;
+                }
+                
+                &.feature-name {
+                  font-size: 16px;
+                  width: 100%;
+                  order: -1;
+                  padding-bottom: 6px;
+                  margin-bottom: 10px;
+                  font-weight: 400;
+                  
+                }
+                
+                &:nth-child(2) {
+                  width: 50%;
+                  padding-top: 6px;
+                  display: flex;
+                  flex-direction: column;
+                  
+                  &[data-pro-value="✓"]::after {
+                    content: "";
+                    display: block;
+                
+                    width: 20px;
+                    height: 20px;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20px' height='20px' viewBox='0 0 20 20'%3E%3Cg id='Artboard' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='arrow'%3E%3Crect id='Rectangle-3' x='0' y='0' width='20' height='20'/%3E%3Cpath d='M16.66983,6.89507105 L8.59505595,14.6814237 C8.15092589,15.1101054 7.4200347,15.1055546 6.97065901,14.671412 L6.96978474,14.671412 C6.90451448,14.6069845 6.84456154,14.5369596 6.79055903,14.462077 L3.34068264,10.4373837 C3.12585383,10.2390538 3.00202551,9.95508673 3.00002463,9.65617586 C2.99802374,9.35726499 3.11803851,9.07152895 3.33019138,8.87010147 C3.77432144,8.4423299 4.5060869,8.44688066 4.95546259,8.88011314 L7.95071766,11.2856456 L15.0349418,5.31868733 C15.4790718,4.89000562 16.209963,4.89455638 16.6593387,5.32778886 C17.1095887,5.76193149 17.11396,6.46638934 16.66983,6.89507105 Z' id='Arrow' fill='%2317B978' fill-rule='nonzero'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                  }
+
+                  &[data-pro-value="no"]::after {
+                    content: "";
+                    display: block;
+                    background-image: url("https://assets.www.happyfox.com/v2/images/pricing-no-tick.svg");
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    width: 20px;
+                    height: 20px;
+                  }
+                }
+                
+                &:nth-child(5) {
+                  width: 30%;
+                  padding-top: 6px;
+                  display: flex;
+                  flex-direction: column;
+                  
+                  &[data-team-value="✓"]::before {
+                    content: "";
+                    display: block;
+                   
+                    margin-top: 5px;
+                    width: 20px;
+                    height: 20px;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20px' height='20px' viewBox='0 0 20 20'%3E%3Cg id='Artboard' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='arrow'%3E%3Crect id='Rectangle-3' x='0' y='0' width='20' height='20'/%3E%3Cpath d='M16.66983,6.89507105 L8.59505595,14.6814237 C8.15092589,15.1101054 7.4200347,15.1055546 6.97065901,14.671412 L6.96978474,14.671412 C6.90451448,14.6069845 6.84456154,14.5369596 6.79055903,14.462077 L3.34068264,10.4373837 C3.12585383,10.2390538 3.00202551,9.95508673 3.00002463,9.65617586 C2.99802374,9.35726499 3.11803851,9.07152895 3.33019138,8.87010147 C3.77432144,8.4423299 4.5060869,8.44688066 4.95546259,8.88011314 L7.95071766,11.2856456 L15.0349418,5.31868733 C15.4790718,4.89000562 16.209963,4.89455638 16.6593387,5.32778886 C17.1095887,5.76193149 17.11396,6.46638934 16.66983,6.89507105 Z' id='Arrow' fill='%2317B978' fill-rule='nonzero'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                  }
+
+                  &[data-team-value="no"]::before {
+                    content: "";
+                    display: block;
+                    background-image: url("https://assets.www.happyfox.com/v2/images/pricing-no-tick.svg");
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    width: 20px;
+                    height: 20px;
+                  }
+                }
+                
+                .checkmark {
+                  font-size: 14px;
+                }
+                
+                .dash {
+                  font-size: 16px;
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -511,8 +702,112 @@
       }
       
       .body-table-container {
+        max-width: 360px;
         .body-table {
-          min-width: 600px;
+          margin: 0 10px 0 30px;
+          
+          tbody {
+            .category-row {
+              .category-name {
+               
+                font-size: 14px;
+               
+              }
+            }
+            
+            .feature-row {
+              flex-wrap: wrap;
+              display: flex;
+             
+              
+              td {
+                padding: 14px 8px;
+                font-size: 16px;
+                border: none;
+                &:nth-child(3),
+                &:nth-child(4) {
+                  display: none;
+                }
+                
+                &.feature-name {
+                  font-size: 14px;
+                  width: 100%;
+                  order: -1;
+                  font-weight: 200;
+                  padding-bottom: 6px;
+                  font-weight: 400;
+                  
+                }
+                
+                &:nth-child(2) {
+                  width: 30%;
+                  padding-top: 6px;
+                  display: flex;
+                  flex-direction: column;
+                  
+                  &[data-pro-value="✓"]::after {
+                    content: "";
+                    display: block;
+                    
+                    width: 20px;
+                    height: 20px;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20px' height='20px' viewBox='0 0 20 20'%3E%3Cg id='Artboard' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='arrow'%3E%3Crect id='Rectangle-3' x='0' y='0' width='20' height='20'/%3E%3Cpath d='M16.66983,6.89507105 L8.59505595,14.6814237 C8.15092589,15.1101054 7.4200347,15.1055546 6.97065901,14.671412 L6.96978474,14.671412 C6.90451448,14.6069845 6.84456154,14.5369596 6.79055903,14.462077 L3.34068264,10.4373837 C3.12585383,10.2390538 3.00202551,9.95508673 3.00002463,9.65617586 C2.99802374,9.35726499 3.11803851,9.07152895 3.33019138,8.87010147 C3.77432144,8.4423299 4.5060869,8.44688066 4.95546259,8.88011314 L7.95071766,11.2856456 L15.0349418,5.31868733 C15.4790718,4.89000562 16.209963,4.89455638 16.6593387,5.32778886 C17.1095887,5.76193149 17.11396,6.46638934 16.66983,6.89507105 Z' id='Arrow' fill='%2317B978' fill-rule='nonzero'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                  }
+
+                  &[data-pro-value="no"]::after {
+                    content: "";
+                    display: block;
+                    background-image: url("https://assets.www.happyfox.com/v2/images/pricing-no-tick.svg");
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    width: 20px;
+                    height: 20px;
+                  }
+                }
+                
+                &:nth-child(5) {
+                  width: 30%;
+                  padding-top: 6px;
+                  display: flex;
+                  flex-direction: column;
+                  
+                  &[data-team-value="✓"]::before {
+                    content: "";
+                    display: block;
+                   
+                   
+                    width: 20px;
+                    height: 20px;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20px' height='20px' viewBox='0 0 20 20'%3E%3Cg id='Artboard' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='arrow'%3E%3Crect id='Rectangle-3' x='0' y='0' width='20' height='20'/%3E%3Cpath d='M16.66983,6.89507105 L8.59505595,14.6814237 C8.15092589,15.1101054 7.4200347,15.1055546 6.97065901,14.671412 L6.96978474,14.671412 C6.90451448,14.6069845 6.84456154,14.5369596 6.79055903,14.462077 L3.34068264,10.4373837 C3.12585383,10.2390538 3.00202551,9.95508673 3.00002463,9.65617586 C2.99802374,9.35726499 3.11803851,9.07152895 3.33019138,8.87010147 C3.77432144,8.4423299 4.5060869,8.44688066 4.95546259,8.88011314 L7.95071766,11.2856456 L15.0349418,5.31868733 C15.4790718,4.89000562 16.209963,4.89455638 16.6593387,5.32778886 C17.1095887,5.76193149 17.11396,6.46638934 16.66983,6.89507105 Z' id='Arrow' fill='%2317B978' fill-rule='nonzero'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                  }
+
+                  &[data-team-value="no"]::before {
+                    content: "";
+                    display: block;
+                    background-image: url("https://assets.www.happyfox.com/v2/images/pricing-no-tick.svg");
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    width: 20px;
+                    height: 20px;
+                  }
+                }
+                
+                .checkmark {
+                  font-size: 14px;
+                }
+                
+                .dash {
+                  color: #d1d5db;
+                font-weight: 600;
+                font-size: 18px;
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -545,6 +840,12 @@
           }
         }
       }
+
+      .body-table{
+        td{
+          font-size: 14px;
+        }
+      }
     }
   }
 }
@@ -575,5 +876,62 @@
         }
       }
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .header-table {
+    padding: 0px 40px;
+    .feature-column{
+      display: none;
+    }
+    .desktop-only {
+      display: none;
+    }
+    
+    .mobile-combined-left,
+    .mobile-combined-right {
+      width: 50%;
+      text-align: center;
+      
+      .desktop-plan-name {
+        display: none;
+      }
+      
+      .mobile-plan-group {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        gap: 4px;
+        padding: 30px 30px 20px 30px;
+        
+        .plan-name {
+          font-size: 20px;
+          font-weight: 500;
+          text-align: left;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-combined-left,
+  .mobile-combined-right {
+    .mobile-plan-group {
+      display: none;
+    }
+    
+    .desktop-plan-name {
+      display: block;
+    }
+  }
+  
+  .mobile-combined-left .desktop-plan-name {
+    display: none;
+  }
+  
+  .mobile-combined-right .desktop-plan-name {
+    display: block;
   }
 }

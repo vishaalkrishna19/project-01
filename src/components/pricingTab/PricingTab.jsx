@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './PricingTab.scss';
 
 const PricingTab = () => {
   const [activeTab, setActiveTab] = useState('agent');
   const [billingCycle, setBillingCycle] = useState('annual');
+  const [displayBillingCycle, setDisplayBillingCycle] = useState('annual'); 
+  const [isFlipping, setIsFlipping] = useState(false);
 
   const agentBasedPricing = [
     {
@@ -30,7 +32,7 @@ const PricingTab = () => {
       pricing: {
         monthly: 79,
         annual: 49,
-        '2year': 59
+        '2year': 39
       },
       period: 'Per agent/mo',
       features: [
@@ -144,7 +146,7 @@ const PricingTab = () => {
 
   const getCurrentPrice = (plan) => {
     if (plan.isContactSales) return null;
-    return plan.pricing[billingCycle];
+    return plan.pricing[displayBillingCycle];
   };
 
   const getAvailableBillingOptions = () => {
@@ -154,17 +156,53 @@ const PricingTab = () => {
     return ['monthly', 'annual', '2year']; 
   };
 
+  const handleBillingCycleChange = (cycle) => {
+    if (cycle !== billingCycle) {
+      setIsFlipping(true);
+
+      setBillingCycle(cycle);
+
+      setTimeout(() => {
+        setDisplayBillingCycle(cycle);
+      }, 300); 
+      
+      setTimeout(() => {
+        setIsFlipping(false);
+      }, 600);
+    }
+  };
+
   const handleTabChange = (tab) => {
     setActiveTab(tab);
     if (tab === 'unlimited' && billingCycle === 'monthly') {
-      setBillingCycle('annual'); 
+      setIsFlipping(true);
+      
+      setBillingCycle('annual');
+      
+     
+      setTimeout(() => {
+        setDisplayBillingCycle('annual');
+      }, 300);
+      
+      setTimeout(() => {
+        setIsFlipping(false);
+      }, 600);
+    } else {
+      
+      setDisplayBillingCycle(billingCycle);
     }
   };
+
+  useEffect(() => {
+    if (!isFlipping) {
+      setDisplayBillingCycle(billingCycle);
+    }
+  }, [billingCycle, isFlipping]);
 
   const availableBillingOptions = getAvailableBillingOptions();
 
   return (
-    <>
+    <div>
       <div className="pricing-header-section">
         <div className="pricing-header-content">
           <h1 className="pricing-title">Plans & Pricing</h1>
@@ -191,7 +229,7 @@ const PricingTab = () => {
           {availableBillingOptions.includes('monthly') && (
             <button 
               className={`billing-button ${billingCycle === 'monthly' ? 'active' : ''}`}
-              onClick={() => setBillingCycle('monthly')}
+              onClick={() => handleBillingCycleChange('monthly')}
             >
               Monthly
             </button>
@@ -199,7 +237,7 @@ const PricingTab = () => {
           
           <button 
             className={`billing-button ${billingCycle === 'annual' ? 'active' : ''}`}
-            onClick={() => setBillingCycle('annual')}
+            onClick={() => handleBillingCycleChange('annual')}
           >
             Annual
           </button>
@@ -207,7 +245,7 @@ const PricingTab = () => {
           <div className="savings-plan-container">
             <button 
               className={`billing-button ${billingCycle === '2year' ? 'active' : ''}`}
-              onClick={() => setBillingCycle('2year')}
+              onClick={() => handleBillingCycleChange('2year')}
             >
               <span className="plan-text">2-Year Savings Plan</span>
               <span className="paid-label">Paid Up-Front</span>
@@ -216,8 +254,11 @@ const PricingTab = () => {
         </div>
 
         <div className={`pricing-cards ${activeTab === 'unlimited' ? 'unlimited-layout' : ''}`}>
-          {getCurrentPricingData().map((plan) => (
-            <div key={plan.id} className={`pricing-card ${plan.isPopular ? 'featured' : ''}`}>
+          {getCurrentPricingData().map((plan, index) => (
+            <div 
+              key={plan.id} 
+              className={`pricing-card ${plan.isPopular ? 'featured' : ''}`}
+            >
               {plan.isPopular && <div className="popular-badge">Most Popular</div>}
               
               <h3 className="plan-name">{plan.name}</h3>
@@ -229,22 +270,35 @@ const PricingTab = () => {
               ) : (
                 <div className="price">
                   <span className="currency">$</span>
-                  <span className="amount">{getCurrentPrice(plan)}</span>
+                  <span className={`amount ${isFlipping ? 'flip-animation' : ''}`}>
+                    {getCurrentPrice(plan)}
+                  </span>
                   <span className="period">{plan.period}</span>
                 </div>
               )}
 
               <ul className="features-list">
-                {plan.features.map((feature, index) => (
-                  <li key={index} className="feature-item">
-                    {((plan.id === 'pro' || plan.id === 'team') && index === 0) || 
-                     ((plan.id === 'scale' || plan.id === 'scale-plus') && index === 0) ? (
-                      <span className="feature-header">{feature}</span>
-                    ) : (
-                      feature
-                    )}
-                  </li>
-                ))}
+                {plan.features.map((feature, index) => {
+             
+                  const isHeaderFeature = (
+                    (plan.id === 'team' || plan.id === 'pro' || plan.id === 'enterprise') && 
+                    index === 0
+                  );
+                  
+                  if (isHeaderFeature) {
+                    return (
+                      <div key={index} className="feature-header">
+                        {feature}
+                      </div>
+                    );
+                  }
+                  
+                  return (
+                    <li key={index} className="feature-item">
+                      {feature}
+                    </li>
+                  );
+                })}
               </ul>
 
               <button className="demo-button">
@@ -257,24 +311,24 @@ const PricingTab = () => {
 
         <div className='note'>
           <div className='note-text'>
-          <p>
-            {activeTab === 'agent' 
-              ? (
+            <p>
+              {activeTab === 'agent' 
+                ? (
+                    <>
+                      Number of agents is capped at 5 for Basic plan. No limit on agents for other <br/> plans. Non-profit and educational organizations are eligible for a discount.
+                    </>
+                  )
+                : (
                   <>
-                    Number of agents is capped at 5 for Basic plan. No limit on agents for other <br/> plans. Non-profit and educational organizations are eligible for a discount.
+                  All plans come with SSL security, unlimited agents, smart rules, knowledge base, multilingual support, <br/> rich text formatting in tickets and iOS & Android apps.
                   </>
                 )
-              : (
-                <>
-                All plans come with SSL security, unlimited agents, smart rules, knowledge base, multilingual support, <br/> rich text formatting in tickets and iOS & Android apps.
-                </>
-              )
-            }
-          </p>
+              }
+            </p>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

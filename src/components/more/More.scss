@@ -18,8 +18,8 @@
       .more-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-        gap: 30px;
-        max-width: 1000px;
+        gap: 10px;
+        max-width: 1100px;
         margin: 0 auto;
         
         .more-card {
@@ -27,23 +27,15 @@
           padding: 40px 30px;
           border-radius: 12px;
           text-align: center;
-          transition: all 0.3s ease;
-          
+          border: 1px solid transparent;
           position: relative;
           cursor: pointer;
+
           
           &:hover {
             // transform: translateY(-8px);
             border: 1px solid #dddddd;
             box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
-            
-            
-            .card-icon {
-              .icon {
-                color: #ff6b35;
-                transform: scale(1.1);
-              }
-            }
             
             .card-link {
               color: #ff6b35;

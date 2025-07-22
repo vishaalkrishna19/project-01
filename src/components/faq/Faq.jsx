@@ -1,8 +1,58 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import './Faq.scss';
 
 const Faq = () => {
-  const [openQuestions, setOpenQuestions] = useState([]); 
+  const [openQuestions, setOpenQuestions] = useState([]);
+  const [shouldInitAOS, setShouldInitAOS] = useState(false);
+
+  useEffect(() => {
+    const handleCompareScrollComplete = () => {
+      setShouldInitAOS(true);
+    };
+
+    
+    window.addEventListener('compareScrollComplete', handleCompareScrollComplete);
+
+    const compareSection = document.querySelector('.compare-section');
+    if (compareSection) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
+          
+            setShouldInitAOS(true);
+            observer.disconnect();
+          }
+        },
+        { threshold: 0 }
+      );
+      observer.observe(compareSection);
+
+      return () => {
+        observer.disconnect();
+        window.removeEventListener('compareScrollComplete', handleCompareScrollComplete);
+      };
+    }
+
+    return () => {
+      window.removeEventListener('compareScrollComplete', handleCompareScrollComplete);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (shouldInitAOS) {
+     
+      setTimeout(() => {
+        AOS.init({
+          duration: 800,
+          once: true,
+          offset: 100
+        });
+        AOS.refresh();
+      }, 300);
+    }
+  }, [shouldInitAOS]);
 
   const faqData = [
     {
@@ -42,13 +92,16 @@ const Faq = () => {
   };
 
   return (
-    <section className="faq-section">
+    <section className="faq-section" data-aos="fade-up">
       <div className="faq-container">
-        <h2 className="faq-title">Frequently Asked Questions</h2>
+        <h2 className="faq-title" data-aos="fade-down">Frequently Asked Questions</h2>
         
         <div className="faq-list">
           {faqData.map((item, index) => (
-            <div key={index} className={`faq-item ${openQuestions.includes(index) ? 'active' : ''}`}>
+            <div 
+              key={index} 
+              className={`faq-item ${openQuestions.includes(index) ? 'active' : ''}`}
+            >
               <button 
                 className="faq-question"
                 onClick={() => toggleQuestion(index)}

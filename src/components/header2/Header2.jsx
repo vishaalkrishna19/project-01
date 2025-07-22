@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import './Header.scss';
+import './Header2.scss';
 import Translate from '../translate/Translate';
 
-const Header = () => {
+const Header2 = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileMenuVisible, setMobileMenuVisible] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null);
-  const [closeTimeout, setCloseTimeout] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,35 +21,17 @@ const Header = () => {
   }, []);
 
   const handleMouseEnter = (dropdown) => {
-    if (closeTimeout) {
-      clearTimeout(closeTimeout);
-      setCloseTimeout(null);
-    }
-
     setActiveDropdown(dropdown);
     setIsAnimating(true);
   };
 
   const handleMouseLeave = () => {
     setIsAnimating(false);
-    
-    if (closeTimeout) {
-      clearTimeout(closeTimeout);
-    }
-    
-    const timeout = setTimeout(() => {
+    setTimeout(() => {
       setActiveDropdown(null);
     }, 300);
-    
-    setCloseTimeout(timeout);
   };
-  useEffect(() => {
-    return () => {
-      if (closeTimeout) {
-        clearTimeout(closeTimeout);
-      }
-    };
-  }, [closeTimeout]);
+
   const toggleMobileMenu = () => {
     if (mobileMenuOpen) {
       
@@ -77,9 +58,9 @@ const Header = () => {
 
   return (
     <header className="header">
-  
-      <div className={`mega-menu-overlay ${activeDropdown ? 'active' : ''}`}></div>
-      
+
+    <div className={`mega-menu-overlay ${activeDropdown ? 'active' : ''}`}></div>
+
       <div className={`header-container ${isScrolled ? 'hidden' : ''}`}>
         <div className="logo-container">
           <a href="/">
@@ -254,278 +235,27 @@ const Header = () => {
                 </div>
               )}
             </li>
-         
-            <li 
-              className={`nav-item dropdown ${activeDropdown === 'solutions' ? 'active' : ''}`}
-              onMouseEnter={() => handleMouseEnter('solutions')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <a href="#" className="nav-link">
-                Solutions 
-                <span className="dropdown-arrow">
-                  <img 
-                    src="https://s3.us-west-2.amazonaws.com/assets.www.happyfox.com/images/menu-arrow-down.png" 
-                    alt="Dropdown arrow" 
-                    className="arrow-img"
-                  />
-                </span>
-              </a>
-              
-              {activeDropdown === 'solutions' && (
-                <div 
-                  className={`mega-menu solutions-mega-menu ${isAnimating ? 'slide-in-from-right' : 'slide-out-to-right'}`}
-                  onMouseEnter={() => setActiveDropdown('solutions')}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="mega-menu-container">
-                    <div className="mega-menu-section">
-                      <h4 className="section-title">INDUSTRIES</h4>
-                      
-                      <div className="s-menu-item">
-                        
-                        <div className="menu-content">
-                          <h5>Education</h5>
-                          <p>Support solutions for educational institutions</p>
-                        </div>
-                      </div>
-                      
-                      <div className="s-menu-item">
-                        
-                        <div className="menu-content">
-                          <h5>Ecommerce</h5>
-                          <p>Customer support for online retailers</p>
-                        </div>
-                      </div>
-                      
-                      <div className="s-menu-item">
-                       
-                        <div className="menu-content">
-                          <h5>Telecom</h5>
-                          <p>Service desk solutions for telecom providers</p>
-                        </div>
-                      </div>
-                      
-                      <div className="s-menu-item">
-                       
-                        <div className="menu-content">
-                          <h5>Non-Profit Organizations</h5>
-                          <p>Affordable support solutions for nonprofits</p>
-                        </div>
-                      </div>
-                      
-                      
-                    </div>
-                    
-                    <div className="mega-menu-section second">
-                     
-                      
-                      <div className="s-menu-item">
-                        
-                        <div className="menu-content">
-                          <h5>Customer Support</h5>
-                          <p>Complete customer service solutions</p>
-                        </div>
-                      </div>
-                      
-                      <div className="s-menu-item">
-                        
-                        <div className="menu-content">
-                          <h5>IT Support</h5>
-                          <p>Internal IT service management</p>
-                        </div>
-                      </div>
-                      
-                      <div className="s-menu-item">
-                        
-                        <div className="menu-content">
-                          <h5>HR Support</h5>
-                          <p>Employee service desk solutions</p>
-                        </div>
-                      </div>
-                      
-                      <div className="s-menu-item">
-                       
-                        <div className="menu-content">
-                          <h5>Facilities Management</h5>
-                          <p>Workplace and facility request management</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-
-
-                    <div className="mega-menu-section case-studies">
-                      <div className="section-separator"></div>
-                      <h4 className="section-title">TEAMS</h4>
-                      
-                      <div className="case-study-grid">
-                        <div className="case-study-item">
-                          <div className="case-study-content">
-                            <h6>Customer Service</h6>
-                          </div>
-                        </div>
-                        
-                        <div className="case-study-item">
-                          <div className="case-study-content">
-                            <h6>IT Support</h6>
-                          </div>
-                        </div>
-                        
-                        <div className="case-study-item">
-                          <div className="case-study-content">
-                            <h6>Human Resources</h6>
-                          </div>
-                        </div>
-                        
-                        <div className="case-study-item">
-                          <div className="case-study-content">
-                            <h6>Facilities</h6>
-                          </div>
-                        </div>
-                        
-                        <div className="case-study-item">
-                          <div className="case-study-content">
-                            <h6>Marketing</h6>
-                          </div>
-                        </div>
-                        
-                        <div className="case-study-item">
-                          <div className="case-study-content">
-                            <h6>Sales</h6>
-                          </div>
-                        </div>
-                        
-                        <div className="case-study-item">
-                          <div className="case-study-content">
-                            <h6>Small-Business</h6>
-                          </div>
-                        </div>
-                        
-                        <div className="case-study-item">
-                          <div className="case-study-content">
-                            <h6>Enterprise</h6>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    
-                    
-                  </div>
-                </div>
-              )}
+            <li className="nav-item dropdown">
+              <a href="#" className="nav-link">Solutions <span className="dropdown-arrow">
+  <img 
+    src="https://s3.us-west-2.amazonaws.com/assets.www.happyfox.com/images/menu-arrow-down.png" 
+    alt="Dropdown arrow" 
+    className="arrow-img"
+  />
+</span></a>
             </li>
-
             <li className="nav-item">
               <a href="#" className="nav-link">Enterprise</a>
             </li>
-          
-            <li 
-              className={`nav-item dropdown ${activeDropdown === 'resources' ? 'active' : ''}`}
-              onMouseEnter={() => handleMouseEnter('resources')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <a href="#" className="nav-link">
-                Resources 
-                <span className="dropdown-arrow">
-                  <img 
-                    src="https://s3.us-west-2.amazonaws.com/assets.www.happyfox.com/images/menu-arrow-down.png" 
-                    alt="Dropdown arrow" 
-                    className="arrow-img"
-                  />
-                </span>
-              </a>
-              
-              {activeDropdown === 'resources' && (
-                <div 
-                  className={`mega-menu resources-mega-menu ${isAnimating ? 'slide-in-from-right' : 'slide-out-to-right'}`}
-                  onMouseEnter={() => setActiveDropdown('resources')}
-                  onMouseLeave={handleMouseLeave}
-                >
-                  <div className="mega-menu-container">
-                    <div className="mega-menu-section">
-                      <h4 className="section-title">Explore</h4>
-                      
-                      <div className="r-menu-item">
-                        <div className="menu-content">
-                          <h5>Customer Stories</h5>
-                          <p>See why great companies call HappyFox a trusted partner</p>
-                        </div>
-                      </div>
-                      
-                      <div className="r-menu-item">
-                        <div className="menu-content">
-                          <h5>Blog</h5>
-                          <p>Learn tips, stories, and new techniques.</p>
-                        </div>
-                      </div>
-                      
-                      <div className="r-menu-item">
-                        <div className="menu-content">
-                          <h5>Ebooks</h5>
-                          <p>Resources to reinvent your support experiences</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="mega-menu-section second">
-                      <div className="r-menu-item">
-                        <div className="menu-content">
-                          <h5>Guides</h5>
-                          <p>Step-by-step guides for enhancing support operations</p>
-                        </div>
-                      </div>
-                      
-                      <div className="r-menu-item">
-                        <div className="menu-content">
-                          <h5>Webinars</h5>
-                          <p>On-Demand educational resources</p>
-                        </div>
-                      </div>
-                      
-                      <div className="r-menu-item">
-                        <div className="menu-content">
-                          <h5>Videos</h5>
-                          <p>Checkout our library of educational videos</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="mega-menu-section featured">
-                      <div className="section-separator-res"></div>
-                      <h4 className="section-title">Featured</h4>
-                      
-                      <div className="featured-item" >
-                        <img src="https://s3.us-west-2.amazonaws.com/assets.www.happyfox.com/media/images/Zendesk-Review.original.png"  alt="Zendesk alternatives" />
-                        <div className="featured-content">
-                          <h6>Zendesk alternatives for exceptional customer support</h6>
-                          <a href="#" className="read-more">Read More <span className="read-arrow" style={{transition: 'transform 0.2s ease'}}>→</span></a>
-                        </div>
-                      </div>
-                      
-                      <div className="featured-item" style={{transition: 'transform 0.2s ease'}}>
-                        <img src="https://s3.us-west-2.amazonaws.com/assets.www.happyfox.com/media/images/Average-Handle-time-2.original.png" alt="AI Handle Time" />
-                        <div className="featured-content">
-                          <h6>5 Ways AI Can Improve Your Average Handle Time</h6>
-                          <a href="#" className="read-more">Read More <span className="read-arrow" style={{transition: 'transform 0.2s ease'}}>→</span></a>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="mega-menu-footer">
-                      <div className="support-center">
-                        <img src="https://s3.us-west-2.amazonaws.com/assets.www.happyfox.com/media/images/help-circle.original.svg" alt="Support" />
-                        <div className='support-content'>
-                          <strong>Support Center</strong>
-                          <p>What can we help you with? Talk to our customer support.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
+            <li className="nav-item dropdown">
+              <a href="#" className="nav-link">Resources <span className="dropdown-arrow">
+  <img 
+    src="https://s3.us-west-2.amazonaws.com/assets.www.happyfox.com/images/menu-arrow-down.png" 
+    alt="Dropdown arrow" 
+    className="arrow-img"
+  />
+</span></a>
             </li>
-
           </ul>
         </nav>
         
@@ -700,4 +430,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Header2;

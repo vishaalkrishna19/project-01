@@ -485,8 +485,8 @@
       "features": [
         {
           "name": "Asset Manager App",
-          "basic": "—",
-          "team": "—",
+          "basic": false,
+          "team": false,
           "pro": true,
           "enterprise": true,
           "isLink": true
