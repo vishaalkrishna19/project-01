@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import './More.scss';
 
 const More = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 200, 
+      easing: 'ease-in-out',
+      delay: 0
+    });
+  }, []);
+
   return (
-    <section className="more-section">
+    <section className="more-section" data-aos="fade-up">
       <div className="more-container">
-        <h2 className="more-title">More from HappyFox</h2>
+        <h2 className="more-title" data-aos="fade-down">More from HappyFox</h2>
         
-        <div className="more-grid">
-          <div className="more-card">
+        <div className="more-grid" data-aos="fade-up" data-aos-delay="200">
+          <div className="more-card" data-aos="fade-up" data-aos-delay="100">
             <div className="card-icon">
               <img src="//assets.www.happyfox.com/v2/images/pricing-lc.svg" alt="" srcset="" />
             </div>
@@ -21,7 +33,7 @@ const More = () => {
             </a>
           </div>
 
-          <div className="more-card">
+          <div className="more-card" data-aos="fade-up" data-aos-delay="200">
           <div className="card-icon">
               <img src="//assets.www.happyfox.com/v2/images/pricing-cb.svg" alt="" srcset="" />
             </div>
@@ -34,7 +46,7 @@ const More = () => {
             </a>
           </div>
 
-          <div className="more-card">
+          <div className="more-card" data-aos="fade-up" data-aos-delay="300">
           <div className="card-icon">
               <img src="//assets.www.happyfox.com/v2/images/pricing-ai.svg" alt="" srcset="" />
             </div>
@@ -47,7 +59,7 @@ const More = () => {
             </a>
           </div>
 
-          <div className="more-card">
+          <div className="more-card" data-aos="fade-up" data-aos-delay="400">
           <div className="card-icon">
               <img src="//assets.www.happyfox.com/v2/images/pricing-bi.svg" alt="" srcset="" />
             </div>
@@ -60,7 +72,7 @@ const More = () => {
             </a>
           </div>
 
-          <div className="more-card">
+          <div className="more-card" data-aos="fade-up" data-aos-delay="500">
           <div className="card-icon">
               <img src="//assets.www.happyfox.com/v2/images/pricing-wa.svg" alt="" srcset="" />
             </div>

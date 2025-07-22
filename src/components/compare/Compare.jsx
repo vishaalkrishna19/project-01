@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import './Compare.scss';
 import comparisonData from '../../data/compareData.json';
 
@@ -8,7 +10,17 @@ const Compare = () => {
 
   useEffect(() => {
     setData(comparisonData.categories);
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 100
+    });
   }, []);
+
+const handleScrollComplete = () => {
+ 
+  window.dispatchEvent(new CustomEvent('compareScrollComplete'));
+};
 
   const renderCell = (value) => {
     if (typeof value === 'boolean') {
@@ -24,7 +36,22 @@ const Compare = () => {
           </svg>
         </span>
       ) : (
-        <span className="dash">−</span>
+        <span className="dash">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewBox="0 0 20 20" version="1.1">
+
+            <title>Artboard</title>
+            <desc>Created with Sketch.</desc>
+            <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="arrow-dash">
+                    <g>
+                        <rect id="Rectangle-3" x="0" y="0" width="20" height="20"/>
+                        <path d="M3,10 L17,10" id="dash" stroke="#E2E2E2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
+                </g>
+            </g>
+        </svg>
+        </span>
+        
       );
     }
     return value;
@@ -53,37 +80,61 @@ const Compare = () => {
             feature.name
           )}
         </td>
-        <td>{renderCell(feature.basic)}</td>
+        
+        <td 
+          data-pro-value={typeof feature.pro === 'boolean' ? 
+            (feature.pro ? '✓' : 'no') : feature.pro}
+        >
+          {renderCell(feature.basic)}
+        </td>
+        
         <td>{renderCell(feature.team)}</td>
         <td>{renderCell(feature.pro)}</td>
-        <td>{renderCell(feature.enterprise)}</td>
+        
+        <td 
+          data-team-value={typeof feature.team === 'boolean' ? 
+            (feature.team ? '✓' : 'no') : feature.team}
+        >
+          {renderCell(feature.enterprise)}
+        </td>
       </tr>
     ));
   };
 
   return (
-    <>
-      <h2 className="compare-title">Compare Help Desk Plans</h2>
+    <div data-aos="fade-up">
+      <h2 className="compare-title" data-aos="fade-down">Compare Help Desk Plans</h2>
       
-      <div className="compare-container">
+      <div className="compare-container" data-aos="fade-up" data-aos-delay="200">
         <div className="comparison-table-wrapper">
           
-        <div className="header-table-container">
+          <div className="header-table-container" data-aos="slide-down" data-aos-delay="300">
             <table className="header-table">
               <thead>
                 <tr>
                   <th className="feature-column"></th>
-                  <th>Basic</th>
-                  <th>Team</th>
-                  <th>Pro</th>
-                  <th>Enterprise PRO</th>
+                  <th className="plan-header-spacing mobile-combined-left">
+                    <div className="mobile-plan-group">
+                      <span className="plan-name">Basic</span>
+                      <span className="plan-name">Pro</span>
+                    </div>
+                    <div className="plan-header-spacing desktop-only">Basic</div>
+                  </th>
+                  <th className="plan-header-spacing desktop-only">Team</th>
+                  <th className="plan-header-spacing desktop-only">Pro</th>
+                  <th className="mobile-combined-right">
+                    <div className="mobile-plan-group">
+                      <span className="plan-name">Team</span>
+                      <span className="plan-name">Enterprise PRO</span>
+                    </div>
+                    <div className="desktop-plan-name">Enterprise PRO</div>
+                  </th>
                 </tr>
               </thead>
             </table>
           </div>
           
-        
-          <div className="body-table-container">
+          <div className="body-table-container" data-aos="fade-up" data-aos-delay="400">
             <table className="body-table">
               <tbody>
                 {data.map((category, categoryIndex) => (
@@ -119,12 +170,12 @@ const Compare = () => {
           </div>
         </div>
 
-        <div className="comparison-footnotes">
-        <p className="footnote">* Planned</p>
-        <p className="footnote"># Only with custom domain</p>
+        <div className="comparison-footnotes" data-aos="fade-in" data-aos-delay="600">
+          <p className="footnote">* Planned</p>
+          <p className="footnote"># Only with custom domain</p>
+        </div>
       </div>
-      </div>
-    </>
+    </div>
   );
 };
 

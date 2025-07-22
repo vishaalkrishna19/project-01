@@ -150,7 +150,7 @@ const Footer = () => {
       HappyFox AI
     </a>
     <a href="#" className="product-link asset-ai">
-      <img src="//assets.www.happyfox.com/v2/images/site-nav/assist-ai-logo.svg" alt="Asset AI" className="product-icon" />
+      <img src="//assets.www.happyfox.com/v2/images/site-nav/assist-ai-logo.svg" alt="Assist AI" className="product-icon" />
       Assist AI
     </a>
     <a href="#" className="product-link chatbot">
